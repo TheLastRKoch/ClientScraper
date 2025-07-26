@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 
 
-class webdriverUtil:
+class webdriverUtils:
     def __init__(self):
         chrome_options = Options()
 

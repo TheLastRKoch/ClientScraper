@@ -2,7 +2,7 @@ from time import sleep
 import os
 
 
-class PromptUtil:
+class PromptUtils:
     @classmethod
     def clear(self):
         os.system("clear")

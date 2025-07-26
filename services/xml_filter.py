@@ -1,11 +1,11 @@
 from environment import SYSTEM_COLUMN_LIST
-from utils.files import UtilsFile
+from utils.files import FileUtils
 
 
 class XMLFilterService:
 
     def turn_xml_to_dic(self, page_number, page_xml):
-        page_dic = UtilsFile.xml_to_dic(page_xml)
+        page_dic = FileUtils.xml_to_dic(page_xml)
         # TODO: Think in validations
         return page_dic
 
