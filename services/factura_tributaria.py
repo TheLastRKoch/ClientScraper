@@ -1,10 +1,22 @@
 from utils.webdriver import webdriverUtils
 from utils.prompt import PromptUtils
+from environment import (
+    PAGE_LOGIN_TITLE,
+    PAGE_REQUEST_AUTH,
+    PAGE_FOLLOW_STEPS,
+    PAGE_HOMEPAGE_URL,
+    PAGE_PAGE_RANGE,
+    PAGE_APP_URL,
+    PAGE_XML_URL,
+    PAGE_PAGING_ID,
+    SHOT_WAIT,
+    MEDIUM_WAIT,
+    LONG_WAIT,
+)
 
-# TODO: Move this to the env
-SHOT_WAIT = 1
-MEDIUM_WAIT = 3
-LONG_WAIT = 5
+
+class FacturaTributariaException(Exception):
+    pass
 
 
 class FacturaTributariaService:
@@ -13,44 +25,37 @@ class FacturaTributariaService:
 
     def bootstrap(self):
         self.automation.navigate(
-            url=r"https://facturatributaria.com",
-            # TODO: Move this to the env
-            title="La solución para su facturación electrónica",
+            url=PAGE_HOMEPAGE_URL,
+            title=PAGE_LOGIN_TITLE,
             read_timeout=SHOT_WAIT,
         )
 
-        # TODO: Move this to the env
-        PromptUtils.wait_for_user("Please authenticate")
+        PromptUtils.wait_for_user(PAGE_REQUEST_AUTH)
 
         self.automation.navigate(
-            url=r"https://app.facturatributaria.com/Eos.wgx",
+            url=PAGE_APP_URL,
             read_timeout=SHOT_WAIT,
         )
 
-        # TODO: Move this to the env
-        PromptUtils.wait_for_user(
-            "Please follow the next steps:\n- Go to the clients page\n- Select view all"
-        )
+        PromptUtils.wait_for_user(PAGE_FOLLOW_STEPS)
 
     def get_page_range(self):
-        user_resp = PromptUtils.ask_user(
-            "Please type the number of pages to extract [1-10]"
-        )
+        user_resp = PromptUtils.ask_user(PAGE_PAGE_RANGE)
         start, end = map(int, user_resp.split("-"))
         return range(start, end + 1)
 
     def open_application(self):
         self.automation.navigate(
-            url=r"https://app.facturatributaria.com/Eos.wgx",
+            url=PAGE_APP_URL,
             read_timeout=SHOT_WAIT,
         )
 
     def get_page_xml(self):
         self.automation.navigate(
-            "https://app.facturatributaria.com/Route/2.1003048.4/kit/en-GB/CRF_TEMA/1048574.49148.926/0/CRF_TEMA/content.Eos.wgx?vwginstance=0",
+            PAGE_XML_URL,
             read_timeout=SHOT_WAIT,
         )
-        PromptUtils.wait(3)
+        PromptUtils.wait(MEDIUM_WAIT)
         page_response = self.automation.get_source()
 
         if not page_response:
@@ -58,10 +63,9 @@ class FacturaTributariaService:
         return page_response
 
     def switch_page(self, page_number):
-        # TODO: Move this to the env
-        new_page_button = self.automation.get_element_by_ID("TRG_paging_100")
+        new_page_button = self.automation.get_element_by_ID(PAGE_PAGING_ID)
         self.automation.type_text(new_page_button, page_number)
-        PromptUtils.wait(5)
+        PromptUtils.wait(LONG_WAIT)
 
     def Termination(self):
         self.automation.close()

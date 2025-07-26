@@ -20,10 +20,12 @@ class LoggingUtils:
     @classmethod
     def custom_log(self, message, level, color):
         timestamp = self.__get_time_standard()
+        log = f"{timestamp}\t|\t{level}\t|\t{message}\n"
         FileUtils.write_textfile(
             LOG_FILE_PATH,
-            f"{timestamp}\t|\t{level}\t|\t{message}\n"
+            log
         )
+        print(log)
 
     @classmethod
     def trace(self, message):
@@ -34,7 +36,7 @@ class LoggingUtils:
         self.custom_log(message, "Info", self.COMMON)
 
     @classmethod
-    def alert(self, message):
+    def warning(self, message):
         self.custom_log(message, "Warning", self.YELLOW)
 
     @classmethod

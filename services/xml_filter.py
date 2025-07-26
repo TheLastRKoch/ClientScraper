@@ -1,12 +1,17 @@
-from environment import SYSTEM_COLUMN_LIST
+from environment import PAGE_COLUMN_LIST
 from utils.files import FileUtils
+
+
+class XMLFilterException(Exception):
+    pass
 
 
 class XMLFilterService:
 
     def turn_xml_to_dic(self, page_number, page_xml):
         page_dic = FileUtils.xml_to_dic(page_xml)
-        # TODO: Think in validations
+        if page_dic == {}:
+            raise XMLFilterException("The dic page is empty")
         return page_dic
 
     def filter_page_respose(self, page_dic):
@@ -24,7 +29,6 @@ class XMLFilterService:
             .get("WC:DG", {})[1]
             .get("WG:DR", {})
         )
-        # TODO: Think in validations
         return client_list_unformatted
 
     def retrive_clients_from_dic(self, client_list_unformatted):
@@ -33,5 +37,5 @@ class XMLFilterService:
             rows = []
             for column in client_columns.get("WG:DL", {}):
                 rows.append(column.get("@VLB", 0))
-            client_list.append(dict(zip(SYSTEM_COLUMN_LIST, rows)))
+            client_list.append(dict(zip(PAGE_COLUMN_LIST, rows)))
         return client_list
