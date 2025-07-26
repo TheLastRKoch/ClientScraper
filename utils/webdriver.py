@@ -1,25 +1,21 @@
-from selenium.common.exceptions import NoSuchElementException
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from seleniumwire import webdriver
 from time import sleep
 import re
+
+from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium import webdriver
 
 
 class webdriverUtil:
     def __init__(self):
-        seleniumwire_options = {
-            "disable_encoding": True  # Avoid encoding issues in responses
-        }
+        chrome_options = Options()
 
-        # Set up Chrome WebDriver using webdriver_manager
-        service = ChromeService(ChromeDriverManager().install())
-
-        # Initialize the WebDriver with selenium-wire
         self.driver = webdriver.Chrome(
-            service=service, seleniumwire_options=seleniumwire_options
+            service=Service(ChromeDriverManager().install()), options=chrome_options
         )
 
         self.driver.maximize_window()
