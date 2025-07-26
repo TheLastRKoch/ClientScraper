@@ -1,4 +1,5 @@
-from utils.webdriver import webdriverService
+from utils.webdriver import webdriverUtil
+from utils.prompt import PromptUtil
 
 # TODO: Move this to the env
 SHOT_WAIT = 1
@@ -8,9 +9,9 @@ LONG_WAIT = 5
 
 class FacturaTributariaService:
     def __init__(self):
-        self.automation = webdriverService()
+        self.automation = webdriverUtil()
 
-    def init_site(self):
+    def bootstrap(self):
         self.automation.navigate(
             url=r"https://facturatributaria.com",
             # TODO: Move this to the env
@@ -19,7 +20,7 @@ class FacturaTributariaService:
         )
 
         # TODO: Move this to the env
-        self.automation.wait_for_prompt("Please authenticate")
+        PromptUtil.wait_for_user("Please authenticate")
 
         self.automation.navigate(
             url=r"https://app.facturatributaria.com/Eos.wgx",
@@ -27,7 +28,7 @@ class FacturaTributariaService:
         )
 
         # TODO: Move this to the env
-        self.automation.wait_for_prompt(
+        PromptUtil.wait_for_user(
             "Please follow the next steps:\n- Go to the clients page\n- Select view all"
         )
 
@@ -42,7 +43,7 @@ class FacturaTributariaService:
             "https://app.facturatributaria.com/Route/2.1003048.4/kit/en-GB/CRF_TEMA/1048574.49148.926/0/CRF_TEMA/content.Eos.wgx?vwginstance=0",
             read_timeout=SHOT_WAIT,
         )
-        self.automation.wait(3)
+        PromptUtil.wait(3)
         page_response = self.automation.get_source()
 
         if not page_response:
@@ -53,4 +54,4 @@ class FacturaTributariaService:
         # TODO: Move this to the env
         new_page_button = self.automation.get_element_by_ID("TRG_paging_100")
         self.automation.type_text(new_page_button, page_number)
-        self.automation.wait(5)
+        PromptUtil.wait(5)

@@ -8,7 +8,7 @@ import re
 from selenium.webdriver.common.keys import Keys
 
 
-class webdriverService:
+class webdriverUtil:
     def __init__(self):
         seleniumwire_options = {
             "disable_encoding": True  # Avoid encoding issues in responses

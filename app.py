@@ -8,7 +8,7 @@ if __name__ == "__main__":
     factura_tributaria = FacturaTributariaService()
     xml_filter = XMLFilterService()
 
-    factura_tributaria.init_site()
+    factura_tributaria.bootstrap()
 
     factura_tributaria.open_application()
     factura_tributaria.switch_page(1)
