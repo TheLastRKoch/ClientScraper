@@ -1,0 +1,37 @@
+from environment import SYSTEM_COLUMN_LIST
+from utils.files import UtilsFile
+
+
+class XMLFilterService:
+
+    def turn_xml_to_dic(self, page_number, page_xml):
+        page_dic = UtilsFile.xml_to_dic(page_xml)
+        # TODO: Think in validations
+        return page_dic
+
+    def filter_page_respose(self, page_dic):
+        client_list_unformatted = (
+            page_dic.get("html", {})
+            .get("body", {})
+            .get("div", {})[0]
+            .get("WG:R", {})
+            .get("WG:F", {})
+            .get("WC:UC", {})
+            .get("WC:TC", {})
+            .get("WC:TP", {})
+            .get("WC:UC", {})
+            .get("WC:UC", {})[0]
+            .get("WC:DG", {})[1]
+            .get("WG:DR", {})
+        )
+        # TODO: Think in validations
+        return client_list_unformatted
+
+    def retrive_clients_from_dic(self, client_list_unformatted):
+        client_list = []
+        for client_columns in client_list_unformatted:
+            rows = []
+            for column in client_columns.get("WG:DL", {}):
+                rows.append(column.get("@VLB", 0))
+            client_list.append(dict(zip(SYSTEM_COLUMN_LIST, rows)))
+        return client_list
