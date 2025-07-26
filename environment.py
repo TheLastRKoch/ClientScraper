@@ -1,3 +1,6 @@
+# Logs
+LOG_FILE_PATH = "resources/client_scraper.log"
+
 SYSTEM_COLUMN_LIST = [
     "Status",
     "ID",
