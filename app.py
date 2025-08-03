@@ -4,6 +4,7 @@ from services.factura_tributaria import FacturaTributariaService
 from services.xml_filter import XMLFilterService
 from utils.logging import LoggingUtils as log
 from utils.files import FileUtils
+from environment import CSV_FILE_PATH
 
 
 try:
@@ -29,7 +30,7 @@ try:
         client_list = xml_filter.retrive_clients_from_dic(client_list_unformatted)
         log.trace(f"Stop downloading page {page_number}")
         log.trace(f"Start saving page {page_number} result into csv")
-        FileUtils.write_csv("resources/client_list.csv", client_list)
+        FileUtils.write_csv(CSV_FILE_PATH, client_list)
         log.trace(f"Stop saving page {page_number} result into csv")
         log.info(f"Stop processing page {page_number}")
         page_counter = +1
@@ -40,3 +41,5 @@ except KeyboardInterrupt:
     log.warning("Interrupted the execution of the automation")
 except Exception:
     log.error("An issue has occurred: " + traceback.format_exc())
+finally:
+    factura_tributaria.Termination()

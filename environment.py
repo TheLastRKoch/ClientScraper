@@ -1,5 +1,5 @@
 # Logs
-LOG_FILE_PATH = "resources/client_scraper.log"
+LOG_FILE_PATH = "/temp/client_scraper.log"
 
 # Factura Electronica page
 PAGE_COLUMN_LIST = [
@@ -40,3 +40,6 @@ PAGE_PAGING_ID = r"TRG_paging_100"
 SHOT_WAIT = 1
 MEDIUM_WAIT = 3
 LONG_WAIT = 5
+
+# CSV
+CSV_FILE_PATH = "/temp/client_list.csv"
