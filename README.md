@@ -46,7 +46,11 @@ Siga estos pasos para ejecutar el web scraper:
 
 8. **Seleccionar opciones**:
    - En la barra de filtros, seleccione "Todos".
+     <img width="341" height="35" alt="Screenshot from 2025-08-02 19-17-40" src="https://github.com/user-attachments/assets/344958f4-ce5f-4ce8-a96c-436ffa9ffd27" />
+
    - En la barra de registros, seleccione "Todas las líneas".
+   <img width="341" height="73" alt="Screenshot from 2025-08-02 19-18-14" src="https://github.com/user-attachments/assets/6f34753d-d7fb-4d2c-b6dd-7a186845b140" />
+
 
 9. **Verificar el número de páginas**:
    - Observe el número total de páginas mostrado en la lista de clientes.
