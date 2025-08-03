@@ -1,7 +1,4 @@
 # ClientScraper
-
-# Web Scraper para FacturaTributaria.com
-
 Este proyecto es un web scraper diseñado para extraer datos de clientes desde [https://facturatributaria.com](https://facturatributaria.com/). La herramienta se desarrolló debido a que el equipo responsable de la plataforma discontinuará el servicio y no proporciona una forma sencilla de exportar la lista de clientes.
 
 <br>
